@@ -182,7 +182,7 @@ class GPTLanguageModel(nn.Module):
         # idx is (B, T) array of indices in the current context
         for _ in range(max_new_tokens):
             # crop idx to the last block_size tokens
-            idx_cond = idx[:, -block_size:]
+            idx_cond = idx[:, -block_size:] # idx is (B, T), we only get the last of Time dimension which is the prediction of the last token.
             # get the predictions
             logits, loss = self(idx_cond)
             # focus only on the last time step
